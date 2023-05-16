@@ -31,7 +31,7 @@ class settingScreen extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: MyThemeData.prinaryColor),
+                        color: MyThemeData.primaryColor),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Row(
@@ -75,7 +75,7 @@ class settingScreen extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: MyThemeData.prinaryColor),
+                        color: MyThemeData.primaryColor),
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Row(
