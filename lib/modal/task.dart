@@ -30,7 +30,7 @@ class Task {
       'title': title,
       'description': description,
       'id': id,
-      'dateTime': date,
+      'date': date,
       'isChecked': isChecked,
     };
   }

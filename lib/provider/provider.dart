@@ -37,4 +37,13 @@ class listProvider extends ChangeNotifier {
     selectedDate = newDate;
     getAllTasksFromFireStore();
   }
+
+  void doneTask(Task task) async {
+    await taskDoneInFireStore(task);
+    getAllTasksFromFireStore();
+  }
+
+  void editTask(Task task) {
+    editTaskInFireStore(task);
+  }
 }

@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:todo_app_course/My_theme_data.dart';
 import 'package:todo_app_course/addTask.dart';
 import 'package:todo_app_course/list/list_Screen.dart';
 import 'package:todo_app_course/settings_tab/settings_tab_screen.dart';
@@ -71,6 +69,7 @@ class _homeScreenState extends State<homeScreen> {
 
   void showAddButtonSheet() {
     showModalBottomSheet(
+        isScrollControlled: true,
         context: context,
         builder: (context) {
           return addTask();
