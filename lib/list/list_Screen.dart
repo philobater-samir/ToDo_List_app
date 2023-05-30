@@ -1,11 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:calendar_timeline/calendar_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app_course/My_theme_data.dart';
 import 'package:todo_app_course/list/task_widget.dart';
-import 'package:calendar_timeline/calendar_timeline.dart';
-import 'package:todo_app_course/modal/firebase.dart';
-import 'package:todo_app_course/modal/task.dart';
 import 'package:todo_app_course/provider/provider.dart';
 
 class listScreen extends StatefulWidget {
@@ -40,6 +37,9 @@ class _listScreenState extends State<listScreen> {
             dotsColor: Color(0xFF333A47),
             selectableDayPredicate: (date) => true,
             locale: 'en_ISO',
+          ),
+          SizedBox(
+            height: 12,
           ),
           Expanded(
             child: ListView.builder(

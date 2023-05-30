@@ -27,99 +27,102 @@ class _addTaskState extends State<addTask> {
     return SingleChildScrollView(
       child: Container(
         margin: EdgeInsets.all(15),
-        child: Column(
-          children: [
-            Text(
-              'Add New Task',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    TextFormField(
-                      onChanged: (text) {
-                        title = text;
-                      },
-                      validator: (text) {
-                        if (text == null || text.isEmpty) {
-                          return 'Please enter title';
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        labelText: 'Enter Your New Task Title',
+        child: Padding(
+          padding:
+              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Column(
+            children: [
+              Text(
+                'Add New Task',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        onChanged: (text) {
+                          title = text;
+                        },
+                        validator: (text) {
+                          if (text == null || text.isEmpty) {
+                            return 'Please enter title';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: 'Enter Your New Task Title',
+                        ),
+                        maxLines: 1,
                       ),
-                      maxLines: 1,
-                    ),
-                    TextFormField(
-                      onChanged: (text) {
-                        description = text;
-                      },
-                      validator: (text) {
-                        if (text == null || text.isEmpty) {
-                          return 'Please enter  task description';
-                        }
-                        return null;
-                      },
-                      decoration: InputDecoration(
-                        labelText: 'Enter Your New Task description',
+                      TextFormField(
+                        onChanged: (text) {
+                          description = text;
+                        },
+                        validator: (text) {
+                          if (text == null || text.isEmpty) {
+                            return 'Please enter  task description';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: 'Enter Your New Task description',
+                        ),
+                        maxLines: 6,
                       ),
-                      maxLines: 6,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(30),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Select Date : ',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w300)),
-                          InkWell(
-                            onTap: () {
-                              chooseDate();
-                            },
-                            child: Text(
-                                '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
+                      Padding(
+                        padding: const EdgeInsets.all(30),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Select Date : ',
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 20,
                                     fontWeight: FontWeight.w300)),
-                          )
-                        ],
+                            InkWell(
+                              onTap: () {
+                                chooseDate();
+                              },
+                              child: Text(
+                                  '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w300)),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        addTaskToList();
-                      },
-                      child: Text(
-                        'Add Task',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25),
+                      ElevatedButton(
+                        onPressed: () {
+                          addTaskToList();
+                        },
+                        child: Text(
+                          'Add Task',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25),
+                        ),
+                        style: ButtonStyle(
+                            foregroundColor:
+                                MaterialStateProperty.all<Color>(Colors.white),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                MyThemeData.primaryColor),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ))),
                       ),
-                      style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              MyThemeData.primaryColor),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ))),
-                    ),
-                  ],
-                ))
-          ],
+                    ],
+                  ))
+            ],
+          ),
         ),
       ),
     );
@@ -145,7 +148,6 @@ class _addTaskState extends State<addTask> {
           date: selectedDate.millisecondsSinceEpoch);
       addTaskToFireStore(task).timeout(Duration(milliseconds: 500),
           onTimeout: () {
-        print('task added');
         provider.getAllTasksFromFireStore();
         Navigator.pop(context);
       });
