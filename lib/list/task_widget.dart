@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app_course/My_theme_data.dart';
@@ -45,7 +46,9 @@ class _taskWidgetState extends State<taskWidget> {
                 backgroundColor: Color(0xFFFE4A49),
                 foregroundColor: Colors.white,
                 icon: Icons.delete,
-                label: 'Delete',
+                label: provider.appLanguage == 'ar'
+                    ? AppLocalizations.of(context)!.delete
+                    : AppLocalizations.of(context)!.delete,
               ),
             ],
           ),
@@ -55,7 +58,9 @@ class _taskWidgetState extends State<taskWidget> {
             ),
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
-                color: MyThemeData.whiteColor,
+                color: provider.appTheme == ThemeMode.dark
+                    ? MyThemeData.darkColor
+                    : Colors.white,
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(15),
                     bottomRight: Radius.circular(15))),
@@ -109,7 +114,9 @@ class _taskWidgetState extends State<taskWidget> {
                   },
                   child: widget.task.isChecked
                       ? Text(
-                          'Done !',
+                    provider.appLanguage == 'ar'
+                              ? AppLocalizations.of(context)!.done
+                              : AppLocalizations.of(context)!.done,
                           style: TextStyle(
                               color: MyThemeData.greenColor,
                               fontWeight: FontWeight.bold,

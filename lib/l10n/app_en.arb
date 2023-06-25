@@ -1,0 +1,20 @@
+{
+"add_task_tittle":"Add New Task ",
+"title":"Enter Your New Task Title",
+"description":"Enter Your New Task description",
+"select_date":"Select Date",
+"add_task":"Add Task",
+"language":"Language",
+"theme":"theme",
+"arabic":"Arabic",
+"english":"English",
+"light":"Light",
+"dark":"Dark",
+"done":"Done",
+"delete":"Delete",
+"edit_task_appbar":"Edit Task ",
+"edit_task_title":"Enter Your Edit Task Title",
+"edit_task_description":"Enter Your Edit Task description",
+"edit_task_select_date":"Select Date : ",
+"edit_task":"Edit Task"
+}

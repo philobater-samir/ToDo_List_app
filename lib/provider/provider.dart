@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../modal/firebase.dart';
 import '../modal/task.dart';
@@ -45,5 +46,29 @@ class listProvider extends ChangeNotifier {
 
   void editTask(Task task) {
     editTaskInFireStore(task);
+  }
+
+  String appLanguage = 'en';
+
+  void changeLanguage(String newLanguage) async {
+    if (newLanguage == appLanguage) {
+      return;
+    }
+    appLanguage = newLanguage;
+    notifyListeners();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('newLanguage', newLanguage);
+  }
+
+  ThemeMode appTheme = ThemeMode.light;
+
+  void changeTheme(ThemeMode newTheme) async {
+    if (newTheme == appTheme) {
+      return;
+    }
+    appTheme = newTheme;
+    notifyListeners();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('newTheme', newTheme == ThemeMode.light ? 'light' : 'dark');
   }
 }
