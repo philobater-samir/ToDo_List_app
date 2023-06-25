@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_app_course/My_theme_data.dart';
 import 'package:todo_app_course/modal/task.dart';
@@ -23,7 +24,7 @@ class _editTaskState extends State<editTask> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPersistentFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       task = ModalRoute.of(context)?.settings.arguments as Task;
       titleController.text = task.title;
       descriptionController.text = task.description;
@@ -34,6 +35,7 @@ class _editTaskState extends State<editTask> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<listProvider>(context);
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
 
@@ -41,9 +43,15 @@ class _editTaskState extends State<editTask> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
-          'Edit Task',
+          provider.appLanguage == 'ar'
+              ? AppLocalizations.of(context)!.edit_task_appbar
+              : AppLocalizations.of(context)!.edit_task_appbar,
           style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 22),
+              color: provider.appTheme == ThemeMode.dark
+                  ? Colors.black
+                  : Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 22),
         ),
         toolbarHeight: 80,
         centerTitle: true,
@@ -53,7 +61,9 @@ class _editTaskState extends State<editTask> {
         child: Stack(
           children: [
             Container(
-              color: MyThemeData.backgroundColor,
+              color: provider.appTheme == ThemeMode.dark
+                  ? MyThemeData.darkColor
+                  : MyThemeData.backgroundColor,
             ),
             Container(
               width: width * 0.9,
@@ -64,90 +74,139 @@ class _editTaskState extends State<editTask> {
                   bottom: height * 0.06,
                   top: height * 0.08),
               decoration: BoxDecoration(
-                  color: MyThemeData.whiteColor,
+                  color: provider.appTheme == ThemeMode.dark
+                      ? MyThemeData.blackColor
+                      : MyThemeData.whiteColor,
                   borderRadius: BorderRadius.circular(25)),
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Form(
+                    key: formKey,
                     child: Column(
-                  children: [
-                    TextFormField(
-                      controller: titleController,
-                      decoration: InputDecoration(
-                        labelText: 'Enter Your New Task Title',
-                      ),
-                      maxLines: 1,
-                    ),
-                    TextFormField(
-                      controller: descriptionController,
-                      decoration: InputDecoration(
-                        labelText: 'Enter Your New Task description',
-                      ),
-                      maxLines: 6,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(30),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Select Date : ',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w300)),
-                          GestureDetector(
-                            child: InkWell(
-                              onTap: () {
-                                chooseDate();
-                              },
-                              child: Text(
-                                  '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
+                      children: [
+                        TextFormField(
+                          controller: titleController,
+                          decoration: InputDecoration(
+                            labelText: provider.appLanguage == 'ar'
+                                ? AppLocalizations.of(context)!.edit_task_title
+                                : AppLocalizations.of(context)!.edit_task_title,
+                            labelStyle: TextStyle(
+                                color: provider.appTheme == ThemeMode.dark
+                                    ? Colors.grey
+                                    : Colors.black),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: provider.appTheme == ThemeMode.dark
+                                      ? Colors.grey
+                                      : Colors.black),
+                            ),
+                          ),
+                          maxLines: 1,
+                          style: TextStyle(
+                              color: provider.appTheme == ThemeMode.dark
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
+                        TextFormField(
+                          controller: descriptionController,
+                          decoration: InputDecoration(
+                            labelText: provider.appLanguage == 'ar'
+                                ? AppLocalizations.of(context)!
+                                    .edit_task_description
+                                : AppLocalizations.of(context)!
+                                    .edit_task_description,
+                            labelStyle: TextStyle(
+                                color: provider.appTheme == ThemeMode.dark
+                                    ? Colors.grey
+                                    : Colors.black),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: provider.appTheme == ThemeMode.dark
+                                      ? Colors.grey
+                                      : Colors.black),
+                            ),
+                          ),
+                          maxLines: 6,
+                          style: TextStyle(
+                              color: provider.appTheme == ThemeMode.dark
+                                  ? Colors.white
+                                  : Colors.black),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                  provider.appLanguage == 'ar'
+                                      ? AppLocalizations.of(context)!
+                                          .edit_task_select_date
+                                      : AppLocalizations.of(context)!
+                                          .edit_task_select_date,
                                   style: TextStyle(
-                                      color: Colors.black,
+                                      color: provider.appTheme == ThemeMode.dark
+                                          ? Colors.grey
+                                          : Colors.black,
                                       fontSize: 20,
                                       fontWeight: FontWeight.w300)),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 6,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (formKey.currentState?.validate() == true) {
-                          task.title = titleController.text;
-                          task.description = descriptionController.text;
-                          task.date = selectedDate.millisecondsSinceEpoch;
-                          Provider.of<listProvider>(context, listen: false)
-                              .editTask(task);
-                          Provider.of<listProvider>(context, listen: false)
-                              .getAllTasksFromFireStore();
-                          Navigator.of(context).pop();
-                        }
-                        ;
-                      },
-                      child: Text(
-                        'Edit Task',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25),
-                      ),
-                      style: ButtonStyle(
-                          foregroundColor:
+                              GestureDetector(
+                                child: InkWell(
+                                  onTap: () {
+                                    chooseDate();
+                                  },
+                                  child: Text(
+                                      '${selectedDate.day}/${selectedDate.month}/${selectedDate.year}',
+                                      style: TextStyle(
+                                          color: provider.appTheme ==
+                                                  ThemeMode.dark
+                                              ? Colors.white
+                                              : Colors.black,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w300)),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 6,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            if (formKey.currentState?.validate() == true) {
+                              task.title = titleController.text;
+                              task.description = descriptionController.text;
+                              task.date = selectedDate.millisecondsSinceEpoch;
+                              Provider.of<listProvider>(context, listen: false)
+                                  .editTask(task);
+                              Provider.of<listProvider>(context, listen: false)
+                                  .getAllTasksFromFireStore();
+                              Navigator.of(context).pop();
+                            }
+                            ;
+                          },
+                          child: Text(
+                            provider.appLanguage == 'ar'
+                                ? AppLocalizations.of(context)!.edit_task
+                                : AppLocalizations.of(context)!.edit_task,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 25),
+                          ),
+                          style: ButtonStyle(
+                              foregroundColor:
                               MaterialStateProperty.all<Color>(Colors.white),
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              MyThemeData.primaryColor),
-                          shape:
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  MyThemeData.primaryColor),
+                              shape:
                               MaterialStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ))),
-                    ),
-                  ],
-                )),
+                                    borderRadius: BorderRadius.circular(30),
+                                  ))),
+                        ),
+                      ],
+                    )),
               ),
             )
           ],

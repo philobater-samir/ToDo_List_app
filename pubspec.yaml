@@ -32,6 +32,10 @@ dependencies:
   flutter:
     sdk: flutter
   calendar_timeline: ^1.1.2
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  shared_preferences: ^2.1.2
 
 
 
@@ -70,6 +74,7 @@ flutter_native_splash:
 
 # The following section is specific to Flutter packages.
 flutter:
+  generate: true
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

@@ -30,8 +30,12 @@ class _listScreenState extends State<listScreen> {
               provider.setNewSelectedDay(date);
             },
             leftMargin: 20,
-            monthColor: Colors.black,
-            dayColor: Colors.white,
+            monthColor: provider.appTheme == ThemeMode.dark
+                ? Colors.grey
+                : Colors.black,
+            dayColor: provider.appTheme == ThemeMode.dark
+                ? Colors.grey
+                : Colors.white,
             activeDayColor: MyThemeData.whiteColor,
             activeBackgroundDayColor: MyThemeData.primaryColor,
             dotsColor: Color(0xFF333A47),
