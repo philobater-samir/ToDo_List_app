@@ -1,0 +1,20 @@
+{
+"add_task_tittle":"اضافة مهمة جديدة",
+"title":"اضف عنوان للمهمة الجديدة ",
+"description":"اضف وصف للمهمة الجديدة ",
+"select_date":" اختار الوقت : ",
+"add_task":"اضافة مهمة",
+"language":"اللغة",
+"theme":"الواجهة",
+"arabic":"العربية",
+"english":"الانجليزية",
+"light":"مضئ",
+"dark":"مظلم",
+"done":"تمت",
+"delete":"حذف",
+"edit_task_appbar":" تعديل المهمة ",
+"edit_task_title":" تعديل عنوان المهمة ",
+"edit_task_description":"تعديل وصف المهمة  ",
+"edit_task_select_date":"   تعديل الوقت :  ",
+"edit_task":"تعديل المهمة "
+}
